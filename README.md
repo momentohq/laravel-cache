@@ -39,7 +39,7 @@ Add our repository to your `composer.json` file and our package as a dependency:
 ```json
 {
   "require": {
-    "momentohq/laravel-momento-cache": "0.0.1"
+    "momentohq/laravel-cache": "0.0.1"
   }
 }
 ```
