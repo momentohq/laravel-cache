@@ -38,6 +38,12 @@ Add our repository to your `composer.json` file and our package as a dependency:
 
 ```json
 {
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/momentohq/client-sdk-php"
+    }
+  ],
   "require": {
     "momentohq/laravel-cache": "0.0.1"
   }
