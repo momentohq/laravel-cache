@@ -28,7 +28,7 @@ class MomentoTaggedCache extends TaggedCache
     {
         $tags = $this->tags->getNames();
         $cacheName = $this->store->getCacheName();
-        $value = "erika";
+        $value = null;
         foreach ($tags as $tag) {
             $keys = $this->store->setFetch($cacheName, $tag);
             foreach ($keys as $k) {

@@ -6,7 +6,6 @@ use Illuminate\Cache\TaggableStore;
 use Illuminate\Cache\TagSet;
 use Momento\Auth\EnvMomentoTokenProvider;
 use Momento\Cache\Errors\UnknownError;
-use Momento\Cache\SimpleCacheClient;
 
 class MomentoStore extends TaggableStore
 {
@@ -68,7 +67,12 @@ class MomentoStore extends TaggableStore
 
     public function forget($key)
     {
-        throw new UnknownError("forget operations is currently not supported.");
+        $result = $this->client->delete($this->cacheName, $key);
+        if ($result->asSuccess()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function flush()
