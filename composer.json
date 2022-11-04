@@ -14,7 +14,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Momento\\Cache": "src/"
+      "Momento\\Cache\\": "src/"
     }
   },
   "config": {
