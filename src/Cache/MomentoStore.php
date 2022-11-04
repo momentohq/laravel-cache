@@ -52,7 +52,23 @@ class MomentoStore extends TaggableStore
 
     public function increment($key, $value = 1)
     {
-        return false;
+        $getResult = $this->client->get($key);
+        if ($getResult->asHit()) {
+            $incrementedValue = intval($getResult->asHit()->value()) + 1;
+            $result = $this->client->set($this->cacheName, $key, $incrementedValue);
+            if ($result->asSuccess()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if ($getResult->asMiss()) {
+            $result = $this->client->set($this->cacheName, $key, 0);
+            if ($result->asSuccess()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     public function decrement($key, $value = 1)
