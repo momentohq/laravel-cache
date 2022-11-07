@@ -1,0 +1,24 @@
+name: On Pull Request
+
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+
+jobs:
+  verify-readme:
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Verify README generation
+        uses: momentohq/standards-and-practices/github-actions/oss-readme-template@gh-actions-v1
+        with:
+          project_status: official
+          project_stability: alpha
+          project_type: other
+
+      - name: Commitlint and Other Shared Build Steps
+        uses: momentohq/standards-and-practices/github-actions/shared-build@gh-actions-v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

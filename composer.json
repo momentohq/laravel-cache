@@ -1,0 +1,30 @@
+{
+  "name": "momentohq/laravel-cache",
+  "description": "Taggable Momento cache driver for Laravel.",
+  "type": "library",
+  "license": "Apache-2.0",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/momentohq/client-sdk-php"
+    }
+  ],
+  "require": {
+    "momentohq/client-sdk-php": "0.2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Momento\\Cache\\": "src/"
+    }
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Momento\\Cache\\MomentoServiceProvider"
+      ]
+    }
+  }
+}
