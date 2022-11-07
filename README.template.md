@@ -60,7 +60,6 @@ Finally, add the required config to your `config/cache.php`:
             'cache_name' => env('MOMENTO_CACHE_NAME'),
             'default_ttl' => 60,
         ],
-		// ...
 ],
 ```
 
