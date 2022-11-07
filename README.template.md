@@ -33,7 +33,7 @@ Add our repository to your `composer.json` file and our SDK as a dependency:
     }
   ],
   "require": {
-    "momentohq/laravel-cache": "0.0.1"
+    "momentohq/laravel-cache": "0.1.0"
   }
 }
 ```
