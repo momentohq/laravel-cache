@@ -19,4 +19,3 @@ jobs:
           project_status: official
           project_stability: alpha
           project_type: other
-          sdk_language: PHP
