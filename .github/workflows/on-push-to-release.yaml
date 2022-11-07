@@ -39,7 +39,7 @@ jobs:
         with:
           project_status: official
           project_stability: alpha
-          project_type: sdk
+          project_type: other
 
       - name: Commitlint and Other Shared Build Steps
         uses: momentohq/standards-and-practices/github-actions/shared-build@gh-actions-v1
