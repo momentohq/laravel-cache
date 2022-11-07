@@ -70,10 +70,6 @@ Run `composer update` to install the necessary prerequisites.
 
 Check out full working code in [the example app](https://github.com/momentohq/laravel-example)!
 
-### Error Handling
-
-Coming soon!
-
 ### Tuning
 
 Coming soon!
