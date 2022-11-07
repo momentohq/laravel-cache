@@ -40,8 +40,3 @@ jobs:
           project_status: official
           project_stability: alpha
           project_type: other
-
-      - name: Commitlint and Other Shared Build Steps
-        uses: momentohq/standards-and-practices/github-actions/shared-build@gh-actions-v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.MOMENTO_MACHINE_USER_GITHUB_TOKEN }}
