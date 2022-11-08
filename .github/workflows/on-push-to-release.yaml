@@ -24,7 +24,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.0'
           extensions: grpc
           tools: composer
 
@@ -39,7 +39,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set release
-        id: semrel
         uses: go-semantic-release/action@v1
         with:
           github-token: ${{ secrets.MOMENTO_MACHINE_USER_GITHUB_TOKEN }}

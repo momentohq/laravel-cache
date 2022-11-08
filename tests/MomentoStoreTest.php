@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Cache;
 
-class MomentoStoreTests extends BaseTest
+class MomentoStoreTest extends BaseTest
 {
 
     /**
