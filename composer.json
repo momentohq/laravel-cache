@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "momentohq/client-sdk-php": "0.2.0"
+    "momentohq/client-sdk-php": "0.2.1"
   },
   "autoload": {
     "psr-4": {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "61d6ab11f413d53416b236d2a0c4d096",
+    "content-hash": "d875c95110da03f3505a1f61394f420c",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -158,16 +158,16 @@
         },
         {
             "name": "momentohq/client-sdk-php",
-            "version": "v0.2.0",
+            "version": "v0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/momentohq/client-sdk-php.git",
-                "reference": "a0e2045e45fb8d6098c351f35135c807d8d386a6"
+                "reference": "35f5a73b7ffaed282f3ac00ac4a239171a39236f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/momentohq/client-sdk-php/zipball/a0e2045e45fb8d6098c351f35135c807d8d386a6",
-                "reference": "a0e2045e45fb8d6098c351f35135c807d8d386a6",
+                "url": "https://api.github.com/repos/momentohq/client-sdk-php/zipball/35f5a73b7ffaed282f3ac00ac4a239171a39236f",
+                "reference": "35f5a73b7ffaed282f3ac00ac4a239171a39236f",
                 "shasum": ""
             },
             "require": {
@@ -204,10 +204,10 @@
                 }
             },
             "support": {
-                "source": "https://github.com/momentohq/client-sdk-php/tree/v0.2.0",
+                "source": "https://github.com/momentohq/client-sdk-php/tree/v0.2.1",
                 "issues": "https://github.com/momentohq/client-sdk-php/issues"
             },
-            "time": "2022-10-27T21:15:38+00:00"
+            "time": "2022-11-08T21:33:21+00:00"
         }
     ],
     "packages-dev": [],
