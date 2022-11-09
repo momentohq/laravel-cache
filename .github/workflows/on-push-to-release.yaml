@@ -20,7 +20,6 @@ jobs:
           project_status: official
           project_stability: alpha
           project_type: other
-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -33,6 +32,7 @@ jobs:
 
       - name: Run tests
         run: php vendor/phpunit/phpunit/phpunit --configuration phpunit.xml
+
   release:
     runs-on: ubuntu-latest
     needs: [ test ]
