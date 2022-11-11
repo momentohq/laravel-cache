@@ -131,5 +131,4 @@ class MomentoStore extends TaggableStore
     {
         return $this->cacheName;
     }
-
 }
