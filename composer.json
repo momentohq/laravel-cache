@@ -26,5 +26,10 @@
         "Momento\\Cache\\MomentoServiceProvider"
       ]
     }
+  },
+  "config": {
+    "platform": {
+      "php": "8.0"
+    }
   }
 }

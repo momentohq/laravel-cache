@@ -20,7 +20,7 @@ class MomentoStore extends TaggableStore
         $this->client->createCache($cacheName);
     }
 
-    public function get($key)
+    public function get($key): ?string
     {
         $result = $this->client->get($this->cacheName, $key);
         if ($result->asHit()) {
@@ -28,14 +28,18 @@ class MomentoStore extends TaggableStore
         } elseif ($result->asMiss()) {
             return null;
         }
+        return null;
     }
 
+    /**
+     * @throws UnknownError
+     */
     public function many(array $keys)
     {
         throw new UnknownError("many operations is currently not supported.");
     }
 
-    public function put($key, $value, $seconds)
+    public function put($key, $value, $seconds): bool
     {
         $result = $this->client->set($this->cacheName, $key, $value, $seconds);
         if ($result->asSuccess()) {
@@ -45,6 +49,9 @@ class MomentoStore extends TaggableStore
         }
     }
 
+    /**
+     * @throws UnknownError
+     */
     public function putMany(array $values, $seconds)
     {
         throw new UnknownError("putMany operations is currently not supported.");
@@ -71,17 +78,23 @@ class MomentoStore extends TaggableStore
         }
     }
 
+    /**
+     * @throws UnknownError
+     */
     public function decrement($key, $value = 1)
     {
         throw new UnknownError("decrement operations is currently not supported.");
     }
 
+    /**
+     * @throws UnknownError
+     */
     public function forever($key, $value)
     {
         throw new UnknownError("forever operations is currently not supported.");
     }
 
-    public function forget($key)
+    public function forget($key): bool
     {
         $result = $this->client->delete($this->cacheName, $key);
         if ($result->asSuccess()) {
@@ -91,6 +104,9 @@ class MomentoStore extends TaggableStore
         }
     }
 
+    /**
+     * @throws UnknownError
+     */
     public function flush()
     {
         throw new UnknownError("flush operations is currently not supported.");
@@ -100,7 +116,7 @@ class MomentoStore extends TaggableStore
     {
     }
 
-    public function setAdd(string $cacheName, string $setName, string $element, bool $refreshTtl, ?int $ttlSeconds = null)
+    public function setAdd(string $cacheName, string $setName, string $element, bool $refreshTtl, ?int $ttlSeconds = null): bool
     {
         $result = $this->client->setAdd($cacheName, $setName, $element, $refreshTtl, $ttlSeconds);
         if ($result->asSuccess()) {
@@ -110,7 +126,7 @@ class MomentoStore extends TaggableStore
         }
     }
 
-    public function setFetch(string $cacheName, string $setName)
+    public function setFetch(string $cacheName, string $setName): ?array
     {
         $result = $this->client->setFetch($cacheName, $setName);
         if ($result->asHit()) {
@@ -120,14 +136,14 @@ class MomentoStore extends TaggableStore
         }
     }
 
-    public function tags($names)
+    public function tags($names): MomentoTaggedCache
     {
         return new MomentoTaggedCache(
             $this, new TagSet($this, is_array($names) ? $names : func_get_args())
         );
     }
 
-    public function getCacheName()
+    public function getCacheName(): string
     {
         return $this->cacheName;
     }

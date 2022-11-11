@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Cache;
+use Momento\Cache\Errors\UnknownError;
 
+/**
+ * @covers \Momento\Cache\MomentoTaggedCache
+ * @covers \Momento\Cache\MomentoStore
+ */
 class MomentoTaggedCacheTest extends BaseTest
 {
-    /**
-     * @covers \Momento\Cache\MomentoTaggedCache
-     */
     public function testTaggedPutGet_HappyPath()
     {
         $key = uniqid();
@@ -19,9 +21,6 @@ class MomentoTaggedCacheTest extends BaseTest
         $this->assertEquals($value, $getResult, "${value} was expected but received ${getResult}");
     }
 
-    /**
-     * @covers \Momento\Cache\MomentoTaggedCache
-     */
     public function testTaggedPutGetMiss_HappyPath()
     {
         $key = uniqid();
@@ -35,31 +34,21 @@ class MomentoTaggedCacheTest extends BaseTest
         $this->assertNull($getResult, "null was expected but received ${getResult}");
     }
 
-    /**
-     * @covers \Momento\Cache\MomentoTaggedCache
-     */
     public function testTaggedPut_WithEmptyTags_IsFalse()
     {
         $putResult = Cache::tags([])->put(uniqid(), uniqid(), 5);
         $this->assertFalse($putResult, "False was expected but received ${putResult}");
     }
 
-    /**
-     * @covers \Momento\Cache\MomentoTaggedCache
-     */
-    public function testTaggedGet_WithEmptyTags_IsFalse()
+    public function testTaggedGet_WithEmptyTags_IsNull()
     {
         $key = uniqid();
-        $value = uniqid();
-        $putResult = Cache::tags([uniqid()])->put($key, $value, 5);
+        $putResult = Cache::tags([uniqid()])->put($key, uniqid(), 5);
         $this->assertTrue($putResult, "True was expected but received ${putResult}");
         $getResult = Cache::tags([])->get($key);
-        $this->assertFalse($getResult, "False was expected but received ${putResult}");
+        $this->assertNull($getResult, "null was expected but received ${getResult}");
     }
 
-    /**
-     * @covers \Momento\Cache\MomentoTaggedCache
-     */
     public function testTaggedPutMultipleItems_WithOneTag_HappyPath()
     {
         $key1 = uniqid();
@@ -77,10 +66,6 @@ class MomentoTaggedCacheTest extends BaseTest
         $this->assertEquals($value2, $getResult, "${value2} was expected but received ${getResult}");
     }
 
-    /**
-     * @covers \Momento\Cache\MomentoTaggedCache
-     * @covers \Momento\Cache\MomentoStore
-     */
     public function testTaggedPut_RegularGet_IsNull()
     {
         $key = uniqid();
@@ -92,9 +77,6 @@ class MomentoTaggedCacheTest extends BaseTest
         $this->assertNull($getResult, "null was expected but received ${getResult}");
     }
 
-    /**
-     * @covers \Momento\Cache\MomentoTaggedCache
-     */
     public function testTaggedPut_WithWrongOrderTaggedGet_IsNull()
     {
         $key = uniqid();
@@ -107,9 +89,6 @@ class MomentoTaggedCacheTest extends BaseTest
         $this->assertNull($getResult, "null was expected but received ${getResult}");
     }
 
-    /**
-     * @covers \Momento\Cache\MomentoTaggedCache
-     */
     public function testTaggedPutWithTwoTags_TaggedGetWithOnlyOneTag_IsNull()
     {
         $key = uniqid();
@@ -120,5 +99,11 @@ class MomentoTaggedCacheTest extends BaseTest
         $this->assertTrue($putResult, "True was expected but received ${putResult}");
         $getResult = Cache::tags([$tag1])->get($key);
         $this->assertNull($getResult, "null was expected but received ${getResult}");
+    }
+
+    public function testFlush_ThrowsException()
+    {
+        $this->expectException(UnknownError::class);
+        Cache::tags([uniqid()])->flush();
     }
 }

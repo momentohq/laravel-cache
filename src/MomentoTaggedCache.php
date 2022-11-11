@@ -3,12 +3,13 @@
 namespace Momento\Cache;
 
 use Illuminate\Cache\TaggedCache;
+use Momento\Cache\Errors\UnknownError;
 
 class MomentoTaggedCache extends TaggedCache
 {
     const maxTtl = 86400;
 
-    public function put($key, $value, $ttl = null)
+    public function put($key, $value, $ttl = null): bool
     {
         $tags = $this->tags->getNames();
         if (!self::validateTags($tags)) {
@@ -18,9 +19,8 @@ class MomentoTaggedCache extends TaggedCache
         $newKey = self::createNewKey($tags, $key);
         $hashedKey = hash("sha256", $newKey);
         foreach ($tags as $tag) {
-            $newKeyResponse = $this->store->setAdd($cacheName, $tag, $newKey, true, self::maxTtl);
             $hashedKeyResponse = $this->store->setAdd($cacheName, $tag, $hashedKey, true, self::maxTtl);
-            if (!$newKeyResponse || !$hashedKeyResponse) {
+            if (!$hashedKeyResponse) {
                 return false;
             }
         }
@@ -35,19 +35,19 @@ class MomentoTaggedCache extends TaggedCache
     {
         $tags = $this->tags->getNames();
         if (!self::validateTags($tags)) {
-            return false;
+            return null;
         }
         $cacheName = $this->store->getCacheName();
         $value = null;
         $newKey = self::createNewKey($tags, $key);
         $hashedKey = hash("sha256", $newKey);
         foreach ($tags as $tag) {
-            $keys = $this->store->setFetch($cacheName, $tag);
-            if (is_null($keys)) {
+            $hashedKeys = $this->store->setFetch($cacheName, $tag);
+            if (is_null($hashedKeys)) {
                 return $value;
             } else {
-                foreach ($keys as $k) {
-                    if ($k == $hashedKey) {
+                foreach ($hashedKeys as $hk) {
+                    if ($hk == $hashedKey) {
                         $value = $this->store->get($hashedKey);
                         break;
                     }
@@ -57,24 +57,20 @@ class MomentoTaggedCache extends TaggedCache
         return $value;
     }
 
-    private function createNewKey($tags, $key): string
+    /**
+     * @throws UnknownError
+     */
+    public function flush()
     {
-        $newKey = "";
-        if (count($tags) == 1) {
-            return "${tags[0]}-${key}";
-        } else {
-            foreach ($tags as $index => $tag) {
-                if ($index == 0) {
-                    $newKey = "${tag}-";
-                } else {
-                    $newKey = "${newKey}${tag}-";
-                }
-            }
-            return "${newKey}${key}";
-        }
+        throw new UnknownError("flush operations is currently not supported.");
     }
 
-    private function validateTags($tags): bool
+    public static function createNewKey($tags, $key): string
+    {
+        return join("-", $tags) . "-${key}";
+    }
+
+    public static function validateTags($tags): bool
     {
         if (empty($tags)) {
             return false;
