@@ -37,24 +37,9 @@ class MomentoTaggedCache extends TaggedCache
         if (!self::validateTags($tags)) {
             return null;
         }
-        $cacheName = $this->store->getCacheName();
-        $value = null;
         $newKey = self::createNewKey($tags, $key);
         $hashedKey = hash("sha256", $newKey);
-        foreach ($tags as $tag) {
-            $hashedKeys = $this->store->setFetch($cacheName, $tag);
-            if (is_null($hashedKeys)) {
-                return $value;
-            } else {
-                foreach ($hashedKeys as $hk) {
-                    if ($hk == $hashedKey) {
-                        $value = $this->store->get($hashedKey);
-                        break;
-                    }
-                }
-            }
-        }
-        return $value;
+        return $this->store->get($hashedKey);
     }
 
     /**
