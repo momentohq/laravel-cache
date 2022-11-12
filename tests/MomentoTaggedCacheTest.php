@@ -49,6 +49,18 @@ class MomentoTaggedCacheTest extends BaseTest
         $this->assertNull($getResult, "null was expected but received ${getResult}");
     }
 
+    public function testTaggedGet_WithDefaultValue_HappyPath()
+    {
+        $key = uniqid();
+        $value = uniqid();
+        $tag = uniqid();
+        $default = uniqid();
+        $putResult = Cache::tags([$tag])->put($key, $value, 5);
+        $this->assertTrue($putResult, "True was expected but received ${putResult}");
+        $getResult = Cache::tags([$tag])->get(uniqid(), $default);
+        $this->assertEquals($default, $getResult, "${default} was expected but received ${getResult}");
+    }
+
     public function testTaggedPutMultipleItems_WithOneTag_HappyPath()
     {
         $key1 = uniqid();
