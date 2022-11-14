@@ -7,7 +7,7 @@ use Momento\Cache\Errors\UnknownError;
 
 class MomentoTaggedCache extends TaggedCache
 {
-    const maxTtl = 86400;
+    const maxTtl = PHP_INT_MAX;
 
     public function put($key, $value, $ttl = null): bool
     {
