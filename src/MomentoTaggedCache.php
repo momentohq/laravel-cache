@@ -7,8 +7,7 @@ use Momento\Cache\Errors\UnknownError;
 
 class MomentoTaggedCache extends TaggedCache
 {
-    # Divide PHP_INT_MAX by 1000 so that when mxTtl is converted to milliseconds by ttlToMillis, the return value is still int not float.
-    const maxTtl = PHP_INT_MAX / 1000;
+    const maxTtl = PHP_INT_MAX;
 
     public function put($key, $value, $ttl = null): bool
     {
@@ -20,7 +19,8 @@ class MomentoTaggedCache extends TaggedCache
         $newKey = self::createNewKey($tags, $key);
         $hashedKey = hash("sha256", $newKey);
         foreach ($tags as $tag) {
-            $hashedKeyResponse = $this->store->setAdd($cacheName, $tag, $hashedKey, true, (int)self::maxTtl);
+            # Divide PHP_INT_MAX by 1000 so that when mxTtl is converted to milliseconds by ttlToMillis, the return value is still int not float.
+            $hashedKeyResponse = $this->store->setAdd($cacheName, $tag, $hashedKey, true, intdiv(PHP_INT_MAX, 1000));
             if (!$hashedKeyResponse) {
                 return false;
             }
