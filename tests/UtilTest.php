@@ -9,9 +9,9 @@ class UtilTest extends BaseTest
 {
     public function testCreateNewKey()
     {
-        $tags = [uniqid(), uniqid(), uniqid()];
-        $key = uniqid();
-        $expectedNewKey = join("-", $tags) . "-${key}";
+        $tags = ['foo', 'bar'];
+        $key = ['baz'];
+        $expectedNewKey = 'foo-bar-baz';
         $newKey = MomentoTaggedCache::createNewKey($tags, $key);
         $this->assertEquals($expectedNewKey, $newKey, "${expectedNewKey} was expected but received ${newKey}.");
     }

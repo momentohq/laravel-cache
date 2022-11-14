@@ -46,16 +46,4 @@ class MomentoStoreTest extends BaseTest
         $forgetResult = Cache::forget($key);
         $this->assertTrue($forgetResult, "True was expected but received ${forgetResult}");
     }
-
-    public function testTaggedPutGet_HappyPath()
-    {
-        $key = uniqid();
-        $value = uniqid();
-        $tag1 = uniqid();
-        $tag2 = uniqid();
-        $putResult = Cache::tags([$tag1, $tag2])->put($key, $value, 5);
-        $this->assertTrue($putResult, "True was expected but received ${putResult}");
-        $getResult = Cache::tags([$tag1, $tag2])->get($key);
-        $this->assertEquals($value, $getResult, "${value} was expected but received ${getResult}");
-    }
 }
