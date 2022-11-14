@@ -20,7 +20,7 @@ class MomentoTaggedCache extends TaggedCache
         $newKey = self::createNewKey($tags, $key);
         $hashedKey = hash("sha256", $newKey);
         foreach ($tags as $tag) {
-            $hashedKeyResponse = $this->store->setAdd($cacheName, $tag, $hashedKey, true, self::maxTtl);
+            $hashedKeyResponse = $this->store->setAdd($cacheName, $tag, $hashedKey, true, (int)self::maxTtl);
             if (!$hashedKeyResponse) {
                 return false;
             }
