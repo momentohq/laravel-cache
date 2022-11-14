@@ -7,7 +7,8 @@ use Momento\Cache\Errors\UnknownError;
 
 class MomentoTaggedCache extends TaggedCache
 {
-    const maxTtl = PHP_INT_MAX;
+    # Divide PHP_INT_MAX by 1000 so that when mxTtl is converted to milliseconds by ttlToMillis, the return value is still int not float.
+    const maxTtl = PHP_INT_MAX / 1000;
 
     public function put($key, $value, $ttl = null): bool
     {
