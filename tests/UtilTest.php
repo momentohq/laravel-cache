@@ -10,7 +10,7 @@ class UtilTest extends BaseTest
     public function testCreateNewKey()
     {
         $tags = ['foo', 'bar'];
-        $key = ['baz'];
+        $key = 'baz';
         $expectedNewKey = 'foo-bar-baz';
         $newKey = MomentoTaggedCache::createNewKey($tags, $key);
         $this->assertEquals($expectedNewKey, $newKey, "${expectedNewKey} was expected but received ${newKey}.");
