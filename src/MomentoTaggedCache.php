@@ -9,6 +9,7 @@ class MomentoTaggedCache extends TaggedCache
 {
     public function put($key, $value, $ttl = null): bool
     {
+        # Divide PHP_INT_MAX by 1000 so that when mxTtl is converted to milliseconds by ttlToMillis, the return value is still int not float.
         $MAX_TTL = intdiv(PHP_INT_MAX, 1000);
         $tags = $this->tags->getNames();
         if (!self::validateTags($tags)) {
@@ -18,7 +19,6 @@ class MomentoTaggedCache extends TaggedCache
         $newKey = self::createNewKey($tags, $key);
         $hashedKey = hash("sha256", $newKey);
         foreach ($tags as $tag) {
-            # Divide PHP_INT_MAX by 1000 so that when mxTtl is converted to milliseconds by ttlToMillis, the return value is still int not float.
             $hashedKeyResponse = $this->store->setAdd($cacheName, $tag, $hashedKey, true, $MAX_TTL);
             if (!$hashedKeyResponse) {
                 return false;
@@ -66,5 +66,5 @@ class MomentoTaggedCache extends TaggedCache
         }
         return true;
     }
-    
+
 }
