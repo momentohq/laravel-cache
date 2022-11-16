@@ -3,21 +3,28 @@
 namespace Momento\Cache;
 
 use Illuminate\Cache\TaggedCache;
+use Momento\Cache\Errors\UnknownError;
 
 class MomentoTaggedCache extends TaggedCache
 {
-
-    public function put($key, $value, $ttl = null)
+    public function put($key, $value, $ttl = null): bool
     {
+        # Divide PHP_INT_MAX by 1000 so that when mxTtl is converted to milliseconds by ttlToMillis, the return value is still int not float.
+        $MAX_TTL = intdiv(PHP_INT_MAX, 1000);
         $tags = $this->tags->getNames();
+        if (!self::validateTags($tags)) {
+            return false;
+        }
         $cacheName = $this->store->getCacheName();
+        $newKey = self::createNewKey($tags, $key);
+        $hashedKey = hash("sha256", $newKey);
         foreach ($tags as $tag) {
-            $response = $this->store->setAdd($cacheName, $tag, $key, false, $ttl);
-            if (!$response) {
+            $hashedKeyResponse = $this->store->setAdd($cacheName, $tag, $hashedKey, true, $MAX_TTL);
+            if (!$hashedKeyResponse) {
                 return false;
             }
         }
-        $putResponse = $this->store->put($key, $value, $ttl);
+        $putResponse = $this->store->put($hashedKey, $value, $ttl);
         if (!$putResponse) {
             return false;
         }
@@ -27,21 +34,37 @@ class MomentoTaggedCache extends TaggedCache
     public function get($key, $default = null): mixed
     {
         $tags = $this->tags->getNames();
-        $cacheName = $this->store->getCacheName();
-        $value = null;
-        foreach ($tags as $tag) {
-            $keys = $this->store->setFetch($cacheName, $tag);
-            if (is_null($keys)) {
-                return $value;
-            } else {
-                foreach ($keys as $k) {
-                    if ($k == $key) {
-                        $value = $this->store->get($key);
-                        break;
-                    }
-                }
-            }
+        if (!self::validateTags($tags)) {
+            return null;
         }
-        return $value;
+        $newKey = self::createNewKey($tags, $key);
+        $hashedKey = hash("sha256", $newKey);
+        $getResponse = $this->store->get($hashedKey);
+        if (is_null($getResponse)) {
+            return $default;
+        }
+        return $getResponse;
     }
+
+    /**
+     * @throws UnknownError
+     */
+    public function flush()
+    {
+        throw new UnknownError("flush operations is currently not supported.");
+    }
+
+    public static function createNewKey($tags, $key): string
+    {
+        return join("-", $tags) . "-${key}";
+    }
+
+    public static function validateTags($tags): bool
+    {
+        if (empty($tags)) {
+            return false;
+        }
+        return true;
+    }
+
 }

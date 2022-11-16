@@ -5,8 +5,12 @@ on:
     branches: [ main ]
 
 jobs:
-  generate-readme:
+  test:
     runs-on: ubuntu-latest
+    env:
+      MOMENTO_AUTH_TOKEN: ${{ secrets.ALPHA_TEST_AUTH_TOKEN }}
+      MOMENTO_CACHE_NAME: laravel-cache-test
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -18,3 +22,16 @@ jobs:
           project_status: official
           project_stability: alpha
           project_type: other
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          extensions: grpc
+          tools: composer
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run tests
+        run: php vendor/phpunit/phpunit/phpunit --configuration phpunit.xml
