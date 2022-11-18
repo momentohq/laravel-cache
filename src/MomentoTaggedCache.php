@@ -63,12 +63,11 @@ class MomentoTaggedCache extends TaggedCache
                     $forgetResult = $this->store->forget($key);
                     if (!$forgetResult) {
                         return false;
-                    } else {
-                        $setRemoveElementResult = $this->store->setRemoveElement($tag, $key);
-                        if (!$setRemoveElementResult) {
-                            return false;
-                        }
                     }
+                }
+                $setDeleteResult = $this->store->setDelete($tag);
+                if (!$setDeleteResult) {
+                    return false;
                 }
             }
         }

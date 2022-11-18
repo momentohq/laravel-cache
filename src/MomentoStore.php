@@ -140,9 +140,9 @@ class MomentoStore extends TaggableStore
         }
     }
 
-    public function setRemoveElement(string $setName, string $element): bool
+    public function setDelete(string $setName): bool
     {
-        $result = $this->client->setRemoveElement($this->cacheName, $setName, $element);
+        $result = $this->client->setDelete($this->cacheName, $setName);
         if ($result->asSuccess()) {
             return true;
         } else {
