@@ -6,6 +6,8 @@ use Illuminate\Cache\TaggableStore;
 use Illuminate\Cache\TagSet;
 use Momento\Auth\EnvMomentoTokenProvider;
 use Momento\Cache\Errors\UnknownError;
+use Momento\Config\Configurations\Laptop;
+use Momento\Utilities\LoggingHelper;
 
 class MomentoStore extends TaggableStore
 {
@@ -15,7 +17,9 @@ class MomentoStore extends TaggableStore
     public function __construct(string $cacheName, int $defaultTtl)
     {
         $authProvider = new EnvMomentoTokenProvider('MOMENTO_AUTH_TOKEN');
-        $this->client = new SimpleCacheClient($authProvider, $defaultTtl);
+        $logger = LoggingHelper::getMinimalLogger();
+        $configuration = Laptop::latest($logger);
+        $this->client = new SimpleCacheClient($configuration, $authProvider, $defaultTtl);
         $this->cacheName = $cacheName;
         $this->client->createCache($cacheName);
     }
@@ -24,7 +28,7 @@ class MomentoStore extends TaggableStore
     {
         $result = $this->client->get($this->cacheName, $key);
         if ($result->asHit()) {
-            return $result->asHit()->value();
+            return $result->asHit()->valueString();
         } elseif ($result->asMiss()) {
             return null;
         }
@@ -61,14 +65,14 @@ class MomentoStore extends TaggableStore
     {
         $getResult = $this->client->get($this->cacheName, $key);
         if ($getResult->asHit()) {
-            $incrementedValue = intval($getResult->asHit()->value()) + 1;
+            $incrementedValue = intval($getResult->asHit()->valueString()) + 1;
             $result = $this->client->set($this->cacheName, $key, $incrementedValue);
             if ($result->asSuccess()) {
                 return true;
             } else {
                 return false;
             }
-        } else if ($getResult->asMiss()) {
+        } elseif ($getResult->asMiss()) {
             $result = $this->client->set($this->cacheName, $key, 0);
             if ($result->asSuccess()) {
                 return true;
@@ -116,9 +120,9 @@ class MomentoStore extends TaggableStore
     {
     }
 
-    public function setAdd(string $cacheName, string $setName, string $element, bool $refreshTtl, ?int $ttlSeconds = null): bool
+    public function setAddElement(string $setName, string $element, bool $refreshTtl, ?int $ttlSeconds = null): bool
     {
-        $result = $this->client->setAdd($cacheName, $setName, $element, $refreshTtl, $ttlSeconds);
+        $result = $this->client->setAddElement($this->cacheName, $setName, $element, $refreshTtl, $ttlSeconds);
         if ($result->asSuccess()) {
             return true;
         } else {
@@ -126,13 +130,23 @@ class MomentoStore extends TaggableStore
         }
     }
 
-    public function setFetch(string $cacheName, string $setName): ?array
+    public function setFetch(string $setName): ?array
     {
-        $result = $this->client->setFetch($cacheName, $setName);
+        $result = $this->client->setFetch($this->cacheName, $setName);
         if ($result->asHit()) {
-            return $result->asHit()->stringSet();
+            return $result->asHit()->valueArray();
         } else {
             return null;
+        }
+    }
+
+    public function setRemoveElement(string $setName, string $element): bool
+    {
+        $result = $this->client->setRemoveElement($this->cacheName, $setName, $element);
+        if ($result->asSuccess()) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -141,10 +155,5 @@ class MomentoStore extends TaggableStore
         return new MomentoTaggedCache(
             $this, new TagSet($this, is_array($names) ? $names : func_get_args())
         );
-    }
-
-    public function getCacheName(): string
-    {
-        return $this->cacheName;
     }
 }
