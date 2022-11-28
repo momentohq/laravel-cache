@@ -15,11 +15,10 @@ class MomentoTaggedCache extends TaggedCache
         if (!self::validateTags($tags)) {
             return false;
         }
-        $cacheName = $this->store->getCacheName();
         $newKey = self::createNewKey($tags, $key);
         $hashedKey = hash("sha256", $newKey);
         foreach ($tags as $tag) {
-            $hashedKeyResponse = $this->store->setAdd($cacheName, $tag, $hashedKey, true, $MAX_TTL);
+            $hashedKeyResponse = $this->store->setAddElement($tag, $hashedKey, true, $MAX_TTL);
             if (!$hashedKeyResponse) {
                 return false;
             }
@@ -49,9 +48,30 @@ class MomentoTaggedCache extends TaggedCache
     /**
      * @throws UnknownError
      */
-    public function flush()
+    public function flush(): bool
     {
-        throw new UnknownError("flush operations is currently not supported.");
+        $tags = $this->tags->getNames();
+        if (!self::validateTags($tags)) {
+            throw new UnknownError("Empty tag is not valid. Please provide non-empty tags to flush.");
+        }
+        foreach ($tags as $tag) {
+            $keys = $this->store->setFetch($tag);
+            if (!$keys) {
+                return false;
+            } else {
+                foreach ($keys as $key) {
+                    $forgetResult = $this->store->forget($key);
+                    if (!$forgetResult) {
+                        return false;
+                    }
+                }
+                $setDeleteResult = $this->store->setDelete($tag);
+                if (!$setDeleteResult) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public static function createNewKey($tags, $key): string

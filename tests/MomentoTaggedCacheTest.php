@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Cache;
-use Momento\Cache\Errors\UnknownError;
 
 /**
  * @covers \Momento\Cache\MomentoTaggedCache
@@ -113,9 +112,72 @@ class MomentoTaggedCacheTest extends BaseTest
         $this->assertNull($getResult, "null was expected but received ${getResult}");
     }
 
-    public function testFlush_ThrowsException()
+    public function testFlush_HappyPath()
     {
-        $this->expectException(UnknownError::class);
-        Cache::tags([uniqid()])->flush();
+        $key = uniqid();
+        $value = uniqid();
+        $tag = uniqid();
+        $putResult = Cache::tags([$tag])->put($key, $value, 10);
+        $this->assertTrue($putResult, "True was expected but received ${putResult}");
+        $getResult = Cache::tags([$tag])->get($key);
+        $this->assertEquals($value, $getResult, "${value} was expected but received ${getResult}");
+
+        $flushResult = Cache::tags([$tag])->flush();
+        $this->assertTrue($flushResult, "true was expected but received ${flushResult}");
+        $getResult = Cache::tags([$tag])->get($key);
+        $this->assertNull($getResult, "null was expected but received ${getResult}");
+    }
+
+    public function testFlushOnlyOneTag_HappyPath()
+    {
+        $key1 = uniqid();
+        $value1 = uniqid();
+        $key2 = uniqid();
+        $value2 = uniqid();
+        $tag1 = uniqid();
+        $tag2 = uniqid();
+        $tag3 = uniqid();
+        $putResult = Cache::tags([$tag1, $tag2])->put($key1, $value1, 5);
+        $this->assertTrue($putResult, "True was expected but received ${putResult}");
+        $putResult = Cache::tags([$tag1, $tag3])->put($key2, $value2, 5);
+        $this->assertTrue($putResult, "True was expected but received ${putResult}");
+
+        $flushResult = Cache::tags([$tag2])->flush();
+        $this->assertTrue($flushResult, "true was expected but received ${flushResult}");
+        $getResult = Cache::tags([$tag1, $tag3])->get($key2);
+        $this->assertEquals($value2, $getResult, "${value2} was expected but received ${getResult}");
+    }
+
+    public function testFlushMultipleTags_HappyPath()
+    {
+        $key = uniqid();
+        $value = uniqid();
+        $tag1 = uniqid();
+        $tag2 = uniqid();
+        $putResult = Cache::tags([$tag1, $tag2])->put($key, $value, 10);
+        $this->assertTrue($putResult, "True was expected but received ${putResult}");
+        $getResult = Cache::tags([$tag1, $tag2])->get($key);
+        $this->assertEquals($value, $getResult, "${value} was expected but received ${getResult}");
+
+        $flushResult = Cache::tags([$tag1, $tag2])->flush();
+        $this->assertTrue($flushResult, "true was expected but received ${flushResult}");
+        $getResult = Cache::tags([$tag1, $tag2])->get($key);
+        $this->assertNull($getResult, "null was expected but received ${getResult}");
+    }
+
+    public function testFlushNonExistentTag_ReturnsFalse()
+    {
+        $key = uniqid();
+        $value = uniqid();
+        $tag = uniqid();
+        $putResult = Cache::tags([$tag])->put($key, $value, 10);
+        $this->assertTrue($putResult, "True was expected but received ${putResult}");
+        $getResult = Cache::tags([$tag])->get($key);
+        $this->assertEquals($value, $getResult, "${value} was expected but received ${getResult}");
+
+        $flushResult = Cache::tags([uniqid()])->flush();
+        $this->assertFalse($flushResult, "false was expected but received ${flushResult}");
+        $getResult = Cache::tags([$tag])->get($key);
+        $this->assertEquals($value, $getResult, "${value} was expected but received ${getResult}");
     }
 }
