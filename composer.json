@@ -10,21 +10,26 @@
     }
   ],
   "require": {
-    "momentohq/client-sdk-php": "0.2.1"
+    "momentohq/client-sdk-php": "0.3.2"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^7.11"
   },
   "autoload": {
     "psr-4": {
       "Momento\\Cache\\": "src/"
     }
   },
-  "config": {
-    "preferred-install": "dist"
-  },
   "extra": {
     "laravel": {
       "providers": [
         "Momento\\Cache\\MomentoServiceProvider"
       ]
+    }
+  },
+  "config": {
+    "platform": {
+      "php": "8.0.2"
     }
   }
 }
