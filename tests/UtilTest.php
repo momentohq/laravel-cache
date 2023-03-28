@@ -13,15 +13,14 @@ class UtilTest extends BaseTest
         $key = 'baz';
         $expectedNewKey = 'foo-bar-baz';
         $newKey = MomentoTaggedCache::createNewKey($tags, $key);
-        $this->assertEquals($expectedNewKey, $newKey, "${expectedNewKey} was expected but received ${newKey}.");
+        $this->assertEquals($expectedNewKey, $newKey, "$expectedNewKey was expected but received $newKey.");
     }
 
     public function testValidateTags()
     {
         $result = MomentoTaggedCache::validateTags([]);
-        $this->assertFalse($result, "False was expected but received ${result}");
+        $this->assertFalse($result, "False was expected but received $result");
         $result = MomentoTaggedCache::validateTags([uniqid(), uniqid()]);
-        $this->assertTrue($result, "True was expected but received ${result}");
+        $this->assertTrue($result, "True was expected but received $result");
     }
-
 }
