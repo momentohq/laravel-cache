@@ -30,14 +30,8 @@ Add our repository to your `composer.json` file and our SDK as a dependency:
 
 ```json
 {
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/momentohq/laravel-cache"
-    }
-  ],
   "require": {
-    "momentohq/laravel-cache": "0.1.0"
+    "momentohq/laravel-cache": "0.7.1"
   }
 }
 ```
