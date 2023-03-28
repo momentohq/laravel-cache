@@ -26,10 +26,16 @@ Check out full working code in [the example app](https://github.com/momentohq/la
 
 Install composer [as described on the composer website](https://getcomposer.org/doc/00-intro.md).
 
-Add our SDK as a dependency to your `composer.json`:
+Add our repository to your `composer.json` file and our SDK as a dependency:
 
 ```json
 {
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/momentohq/laravel-cache"
+    }
+  ],
   "require": {
     "momentohq/laravel-cache": "0.1.0"
   }
