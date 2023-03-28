@@ -4,6 +4,7 @@ namespace Momento\Cache;
 
 use Illuminate\Cache\TaggedCache;
 use Momento\Cache\Errors\UnknownError;
+use Momento\Requests\CollectionTtl;
 
 class MomentoTaggedCache extends TaggedCache
 {
@@ -18,7 +19,7 @@ class MomentoTaggedCache extends TaggedCache
         $newKey = self::createNewKey($tags, $key);
         $hashedKey = hash("sha256", $newKey);
         foreach ($tags as $tag) {
-            $hashedKeyResponse = $this->store->setAddElement($tag, $hashedKey, true, $MAX_TTL);
+            $hashedKeyResponse = $this->store->setAddElement($tag, $hashedKey, new CollectionTtl($MAX_TTL, true));
             if (!$hashedKeyResponse) {
                 return false;
             }
@@ -76,7 +77,7 @@ class MomentoTaggedCache extends TaggedCache
 
     public static function createNewKey($tags, $key): string
     {
-        return join("-", $tags) . "-${key}";
+        return join("-", $tags) . "-$key";
     }
 
     public static function validateTags($tags): bool

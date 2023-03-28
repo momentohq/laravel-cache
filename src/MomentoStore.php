@@ -7,19 +7,18 @@ use Illuminate\Cache\TagSet;
 use Momento\Auth\EnvMomentoTokenProvider;
 use Momento\Cache\Errors\UnknownError;
 use Momento\Config\Configurations\Laptop;
-use Momento\Utilities\LoggingHelper;
+use Momento\Requests\CollectionTtl;
 
 class MomentoStore extends TaggableStore
 {
-    protected SimpleCacheClient $client;
+    protected CacheClient $client;
     protected string $cacheName;
 
     public function __construct(string $cacheName, int $defaultTtl)
     {
         $authProvider = new EnvMomentoTokenProvider('MOMENTO_AUTH_TOKEN');
-        $logger = LoggingHelper::getMinimalLogger();
-        $configuration = Laptop::latest($logger);
-        $this->client = new SimpleCacheClient($configuration, $authProvider, $defaultTtl);
+        $configuration = Laptop::latest();
+        $this->client = new CacheClient($configuration, $authProvider, $defaultTtl);
         $this->cacheName = $cacheName;
         $this->client->createCache($cacheName);
     }
@@ -120,9 +119,9 @@ class MomentoStore extends TaggableStore
     {
     }
 
-    public function setAddElement(string $setName, string $element, bool $refreshTtl, ?int $ttlSeconds = null): bool
+    public function setAddElement(string $setName, string $element, CollectionTtl $collectionTtl): bool
     {
-        $result = $this->client->setAddElement($this->cacheName, $setName, $element, $refreshTtl, $ttlSeconds);
+        $result = $this->client->setAddElement($this->cacheName, $setName, $element, $collectionTtl);
         if ($result->asSuccess()) {
             return true;
         } else {
@@ -134,7 +133,7 @@ class MomentoStore extends TaggableStore
     {
         $result = $this->client->setFetch($this->cacheName, $setName);
         if ($result->asHit()) {
-            return $result->asHit()->valueArray();
+            return $result->asHit()->valuesArray();
         } else {
             return null;
         }
@@ -142,7 +141,7 @@ class MomentoStore extends TaggableStore
 
     public function setDelete(string $setName): bool
     {
-        $result = $this->client->setDelete($this->cacheName, $setName);
+        $result = $this->client->delete($this->cacheName, $setName);
         if ($result->asSuccess()) {
             return true;
         } else {
