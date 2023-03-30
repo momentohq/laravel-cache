@@ -1,7 +1,7 @@
 <img src="https://docs.momentohq.com/img/logo.svg" alt="logo" width="400"/>
 
 [![project status](https://momentohq.github.io/standards-and-practices/badges/project-status-official.svg)](https://github.com/momentohq/standards-and-practices/blob/main/docs/momento-on-github.md)
-[![project stability](https://momentohq.github.io/standards-and-practices/badges/project-stability-alpha.svg)](https://github.com/momentohq/standards-and-practices/blob/main/docs/momento-on-github.md) 
+[![project stability](https://momentohq.github.io/standards-and-practices/badges/project-stability-stable.svg)](https://github.com/momentohq/standards-and-practices/blob/main/docs/momento-on-github.md) 
 
 
 ## Getting Started :running:
@@ -11,7 +11,8 @@
 - A Momento Auth Token is required, you can generate one using
   the [Momento CLI](https://github.com/momentohq/momento-cli)
 - At least PHP 8.0
-- Laravel 9.x
+- [Composer](https://getcomposer.org/doc/00-intro.md)
+- At least [Laravel 9.x](https://laravel.com/docs/9.x/installation)
 - The grpc PHP extension. See the [gRPC docs](https://github.com/grpc/grpc/blob/v1.46.3/src/php/README.md) section on
   installing the extension.
 
@@ -24,14 +25,12 @@ Check out full working code in [the example app](https://github.com/momentohq/la
 
 ### Installation
 
-Install composer [as described on the composer website](https://getcomposer.org/doc/00-intro.md).
-
-Add our repository to your `composer.json` file and our SDK as a dependency:
+Add our SDK as a dependency to your Laravel installation's `composer.json` file:
 
 ```json
 {
   "require": {
-    "momentohq/laravel-cache": "0.7.1"
+    "momentohq/laravel-cache": "1.0.0"
   }
 }
 ```

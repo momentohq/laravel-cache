@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "157f29d8ed66b3699c2dc01feea438bb",
+    "content-hash": "7e9ea50e4cb431e79acf6f2408af6ab6",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -159,16 +159,16 @@
         },
         {
             "name": "momentohq/client-sdk-php",
-            "version": "v0.7.1",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/momentohq/client-sdk-php.git",
-                "reference": "6264e3c25af9844794c5120a38e48ac7fb140d62"
+                "reference": "461ab7fc6ef960834229592d4a47fa023927e24d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/momentohq/client-sdk-php/zipball/6264e3c25af9844794c5120a38e48ac7fb140d62",
-                "reference": "6264e3c25af9844794c5120a38e48ac7fb140d62",
+                "url": "https://api.github.com/repos/momentohq/client-sdk-php/zipball/461ab7fc6ef960834229592d4a47fa023927e24d",
+                "reference": "461ab7fc6ef960834229592d4a47fa023927e24d",
                 "shasum": ""
             },
             "require": {
@@ -225,7 +225,7 @@
                 "issues": "https://github.com/momentohq/client-sdk-php/issues",
                 "source": "https://github.com/momentohq/client-sdk-php"
             },
-            "time": "2023-03-28T16:47:27+00:00"
+            "time": "2023-03-29T21:41:51+00:00"
         },
         {
             "name": "psr/log",
@@ -1328,16 +1328,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "9239128cfb4d22afefb64060dfecf53e82987267"
+                "reference": "e14d28c0f9403630d13f308bb43f3d3cb73d6d67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/9239128cfb4d22afefb64060dfecf53e82987267",
-                "reference": "9239128cfb4d22afefb64060dfecf53e82987267",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/e14d28c0f9403630d13f308bb43f3d3cb73d6d67",
+                "reference": "e14d28c0f9403630d13f308bb43f3d3cb73d6d67",
                 "shasum": ""
             },
             "require": {
@@ -1522,7 +1522,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-02-22T14:38:06+00:00"
+            "time": "2023-03-28T18:03:54+00:00"
         },
         {
             "name": "laravel/serializable-closure",

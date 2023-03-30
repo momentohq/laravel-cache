@@ -18,7 +18,7 @@ jobs:
         uses: momentohq/standards-and-practices/github-actions/oss-readme-template@gh-actions-v1
         with:
           project_status: official
-          project_stability: alpha
+          project_stability: stable
           project_type: other
 
       - name: Commitlint and Other Shared Build Steps
