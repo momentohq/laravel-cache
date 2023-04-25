@@ -36,7 +36,7 @@ class MomentoStoreTest extends BaseTest
         $decrementResult = Cache::decrement($key);
         $this->assertTrue($decrementResult, "True was expected but received $decrementResult");
         $getResult = Cache::get($key);
-        $this->assertEquals(9, $getResult, "2 was expected but received $getResult");
+        $this->assertEquals(9, $getResult, "9 was expected but received $getResult");
     }
 
     public function testForget_HappyPath()
