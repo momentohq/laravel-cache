@@ -30,7 +30,7 @@ Add our SDK as a dependency to your Laravel installation's `composer.json` file:
 ```json
 {
   "require": {
-    "momentohq/laravel-cache": "1.0.0"
+    "momentohq/laravel-cache": "1.0.2"
   }
 }
 ```

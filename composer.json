@@ -18,7 +18,7 @@
     "source": "https://github.com/momentohq/laravel-cache"
   },
   "require": {
-    "momentohq/client-sdk-php": "1.0.0"
+    "momentohq/client-sdk-php": "1.1.0"
   },
   "require-dev": {
     "orchestra/testbench": "^7.11"
