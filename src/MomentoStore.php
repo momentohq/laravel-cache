@@ -62,8 +62,8 @@ class MomentoStore extends TaggableStore
 
     public function increment($key, $value = 1)
     {
-        $incrResult = $this->client->increment($this->cacheName, $key, $value);
-        if ($incrResult->asSuccess()) {
+        $result = $this->client->increment($this->cacheName, $key, $value);
+        if ($result->asSuccess()) {
             return true;
         } else {
             return false;
@@ -75,8 +75,8 @@ class MomentoStore extends TaggableStore
      */
     public function decrement($key, $value = 1)
     {
-        $decrResult = $this->client->increment($this->cacheName, $key, $value * -1);
-        if ($decrResult->asSuccess()) {
+        $result = $this->client->increment($this->cacheName, $key, $value * -1);
+        if ($result->asSuccess()) {
             return true;
         } else {
             return false;
