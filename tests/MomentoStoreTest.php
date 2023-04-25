@@ -28,13 +28,15 @@ class MomentoStoreTest extends BaseTest
         $this->assertEquals(2, $getResult, "2 was expected but received $getResult");
     }
 
-    public function testIncrementMiss_HappyPath()
+    public function testDecrement_HappyPath()
     {
         $key = uniqid();
-        $incrementResult = Cache::increment($key);
-        $this->assertTrue($incrementResult, "True was expected but received $incrementResult");
+        $putResult = Cache::put($key, 10, 5);
+        $this->assertTrue($putResult, "True was expected but received $putResult");
+        $decrementResult = Cache::decrement($key);
+        $this->assertTrue($decrementResult, "True was expected but received $decrementResult");
         $getResult = Cache::get($key);
-        $this->assertEquals(0, $getResult, "0 was expected but received $getResult");
+        $this->assertEquals(9, $getResult, "2 was expected but received $getResult");
     }
 
     public function testForget_HappyPath()

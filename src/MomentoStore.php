@@ -75,7 +75,12 @@ class MomentoStore extends TaggableStore
      */
     public function decrement($key, $value = 1)
     {
-        throw new UnknownError("decrement operations is currently not supported.");
+        $decrResult = $this->client->increment($this->cacheName, $key, $value * -1);
+        if ($decrResult->asSuccess()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
