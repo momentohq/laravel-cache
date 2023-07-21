@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d5dff87e61dbc07633ccd934c59496f",
+    "content-hash": "6572e2ebb9833fda830356b8215540ae",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -159,16 +159,16 @@
         },
         {
             "name": "momentohq/client-sdk-php",
-            "version": "v1.1.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/momentohq/client-sdk-php.git",
-                "reference": "b84ab27e48feaac1a0d20ebfdc8a60890bfd6393"
+                "reference": "045b2e61766e1f690ef9aa23aa8f78fcc8d6829b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/momentohq/client-sdk-php/zipball/b84ab27e48feaac1a0d20ebfdc8a60890bfd6393",
-                "reference": "b84ab27e48feaac1a0d20ebfdc8a60890bfd6393",
+                "url": "https://api.github.com/repos/momentohq/client-sdk-php/zipball/045b2e61766e1f690ef9aa23aa8f78fcc8d6829b",
+                "reference": "045b2e61766e1f690ef9aa23aa8f78fcc8d6829b",
                 "shasum": ""
             },
             "require": {
@@ -177,7 +177,7 @@
                 "google/protobuf": "3.22.3",
                 "grpc/grpc": "1.52.0",
                 "php": ">=8.0",
-                "psr/log": "^2.0",
+                "psr/log": "^2.0 || ^3.0",
                 "psr/simple-cache": "^3.0"
             },
             "require-dev": {
@@ -225,7 +225,7 @@
                 "issues": "https://github.com/momentohq/client-sdk-php/issues",
                 "source": "https://github.com/momentohq/client-sdk-php"
             },
-            "time": "2023-04-25T00:28:11+00:00"
+            "time": "2023-06-06T20:58:16+00:00"
         },
         {
             "name": "psr/log",
