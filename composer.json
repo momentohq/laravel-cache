@@ -3,7 +3,11 @@
   "description": "Taggable Momento cache driver for Laravel.",
   "type": "library",
   "license": "Apache-2.0",
-  "keywords": ["cache", "caching", "serverless"],
+  "keywords": [
+    "cache",
+    "caching",
+    "serverless"
+  ],
   "homepage": "https://github.com/momentohq/laravel-cache",
   "authors": [
     {
