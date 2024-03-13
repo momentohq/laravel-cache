@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/momentohq/laravel-cache/compare/v1.0.3...v1.0.4) (2024-03-13)
+
+
+### Miscellaneous
+
+* update php sdk version ([#26](https://github.com/momentohq/laravel-cache/issues/26)) ([76bd65d](https://github.com/momentohq/laravel-cache/commit/76bd65d27fbf8886438dea572de8830c7e9ae2a9))
+
 ## [1.0.3](https://github.com/momentohq/laravel-cache/compare/v1.0.0...v1.0.3) (2023-08-04)
 
 
