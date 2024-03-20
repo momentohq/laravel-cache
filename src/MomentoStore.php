@@ -16,7 +16,7 @@ class MomentoStore extends TaggableStore
 
     public function __construct(string $cacheName, int $defaultTtl)
     {
-        $authProvider = new EnvMomentoTokenProvider('MOMENTO_AUTH_TOKEN');
+        $authProvider = new EnvMomentoTokenProvider('MOMENTO_API_KEY');
         $configuration = Laptop::latest();
         $this->client = new CacheClient($configuration, $authProvider, $defaultTtl);
         $this->cacheName = $cacheName;

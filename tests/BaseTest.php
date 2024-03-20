@@ -27,8 +27,8 @@ abstract class BaseTest extends Orchestra\Testbench\TestCase
      */
     protected function setUp(): void
     {
-        if (!getenv('MOMENTO_CACHE_NAME') || !getenv('MOMENTO_AUTH_TOKEN')) {
-            throw new UnknownError("Environment variables named MOMENTO_CACHE_NAME and MOMENTO_AUTH_TOKEN must be set.");
+        if (!getenv('MOMENTO_CACHE_NAME') || !getenv('MOMENTO_API_KEY')) {
+            throw new UnknownError("Environment variables named MOMENTO_CACHE_NAME and MOMENTO_API_KEY must be set.");
         }
         parent::setUp();
         app('cache')->extend('momento', function ($app, $config) {
