@@ -4,8 +4,8 @@
 
 ### Requirements
 
-- A Momento Auth Token is required, you can generate one using
-  the [Momento CLI](https://github.com/momentohq/momento-cli)
+- A Momento API Key is required, you can generate one using
+  the [Momento Console](https://console.gomomento.com)
 - At least PHP 8.0
 - [Composer](https://getcomposer.org/doc/00-intro.md)
 - At least [Laravel 9.x](https://laravel.com/docs/9.x/installation)
@@ -26,7 +26,7 @@ Add our SDK as a dependency to your Laravel installation's `composer.json` file:
 ```json
 {
   "require": {
-    "momentohq/laravel-cache": "1.0.2"
+    "momentohq/laravel-cache": "1.0.4"
   }
 }
 ```
