@@ -16,7 +16,7 @@ Check out our SDK [requirements](https://github.com/momentohq/laravel-cache#requ
 ## Run Integration Test
 
 ```bash
-export MOMENTO_AUTH_TOKEN=<YOUR_AUTH_TOKEN>
+export MOMENTO_API_KEY=<YOUR_API_KEY>
 export MOMENTO_CACHE_NAME=<YOUR_CACHE_NAME>
 php vendor/phpunit/phpunit/phpunit --configuration phpunit.xml
 ```
