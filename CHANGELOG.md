@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/momentohq/laravel-cache/compare/v1.0.4...v1.0.5) (2024-03-25)
+
+
+### Miscellaneous
+
+* update to API Key ([#28](https://github.com/momentohq/laravel-cache/issues/28)) ([848c1ee](https://github.com/momentohq/laravel-cache/commit/848c1ee7975bd7c8c6a5866648d126af228e4307))
+
 ## [1.0.4](https://github.com/momentohq/laravel-cache/compare/v1.0.3...v1.0.4) (2024-03-13)
 
 
