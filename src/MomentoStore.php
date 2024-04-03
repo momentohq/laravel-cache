@@ -5,6 +5,7 @@ namespace Momento\Cache;
 use Illuminate\Cache\TaggableStore;
 use Illuminate\Cache\TagSet;
 use Momento\Auth\EnvMomentoTokenProvider;
+use Momento\Cache\Errors\InvalidArgumentError;
 use Momento\Cache\Errors\UnknownError;
 use Momento\Config\Configurations\Laptop;
 use Momento\Requests\CollectionTtl;
@@ -14,6 +15,9 @@ class MomentoStore extends TaggableStore
     protected CacheClient $client;
     protected string $cacheName;
 
+    /**
+     * @throws InvalidArgumentError
+     */
     public function __construct(string $cacheName, int $defaultTtl)
     {
         $authProvider = new EnvMomentoTokenProvider('MOMENTO_API_KEY');
@@ -34,12 +38,15 @@ class MomentoStore extends TaggableStore
         return null;
     }
 
-    /**
-     * @throws UnknownError
-     */
-    public function many(array $keys)
+    public function many(array $keys): ?array
     {
-        throw new UnknownError("many operations is currently not supported.");
+        $result = $this->client->getBatch($this->cacheName, $keys);
+        if ($result->asSuccess()) {
+            return $result->asSuccess()->values();
+        } elseif ($result->asError()){
+            return null;
+        }
+        return null;
     }
 
     public function put($key, $value, $seconds): bool
@@ -52,15 +59,18 @@ class MomentoStore extends TaggableStore
         }
     }
 
-    /**
-     * @throws UnknownError
-     */
-    public function putMany(array $values, $seconds)
+    public function putMany(array $values, $seconds): bool
     {
-        throw new UnknownError("putMany operations is currently not supported.");
+        $result = $this->client->setBatch($this->cacheName, $values, $seconds);
+        if ($result->asSuccess()) {
+            return true;
+        } elseif ($result->asError()) {
+            return false;
+        }
+        return false;
     }
 
-    public function increment($key, $value = 1)
+    public function increment($key, $value = 1): bool
     {
         $result = $this->client->increment($this->cacheName, $key, $value);
         if ($result->asSuccess()) {
@@ -70,10 +80,7 @@ class MomentoStore extends TaggableStore
         }
     }
 
-    /**
-     * @throws UnknownError
-     */
-    public function decrement($key, $value = 1)
+    public function decrement($key, $value = 1): bool
     {
         $result = $this->client->increment($this->cacheName, $key, $value * -1);
         if ($result->asSuccess()) {

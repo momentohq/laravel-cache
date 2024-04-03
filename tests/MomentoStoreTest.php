@@ -48,4 +48,19 @@ class MomentoStoreTest extends BaseTest
         $forgetResult = Cache::forget($key);
         $this->assertTrue($forgetResult, "True was expected but received $forgetResult");
     }
+
+    public function testPutManyGetMany_HappyPath()
+    {
+        $keys = [uniqid(), uniqid(), uniqid()];
+        $values = [uniqid(), uniqid(), uniqid()];
+        $items = array(
+            $keys[0] => $values[0],
+            $keys[1] => $values[1],
+            $keys[2] => $values[2]
+        );
+        $putManyResult = Cache::putMany($items, 5);
+        $this->assertTrue($putManyResult, "True was expected but received $putManyResult");
+        $getManyResult = Cache::many($keys);
+        $this->assertEquals($values, $getManyResult);
+    }
 }
