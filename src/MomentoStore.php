@@ -108,12 +108,15 @@ class MomentoStore extends TaggableStore
         }
     }
 
-    /**
-     * @throws UnknownError
-     */
-    public function flush()
+    public function flush(): bool
     {
-        throw new UnknownError("flush operations is currently not supported.");
+
+        $result = $this->client->flushCache($this->cacheName);
+        if ($result->asSuccess()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function getPrefix()

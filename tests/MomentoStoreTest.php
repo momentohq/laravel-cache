@@ -63,4 +63,16 @@ class MomentoStoreTest extends BaseTest
         $getManyResult = Cache::many($keys);
         $this->assertEquals($values, $getManyResult);
     }
+
+    public function testFlush_HappyPath()
+    {
+        $key = uniqid();
+        $value = uniqid();
+        $putResult = Cache::put($key, $value, 5);
+        $this->assertTrue($putResult, "True was expected but received $putResult");
+        $flushResult = Cache::flush();
+        $this->assertTrue($flushResult, "True was expected but received $flushResult");
+        $getResult = Cache::get($key);
+        $this->assertNull($getResult, "Null was expected but received $getResult");
+    }
 }
