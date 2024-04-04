@@ -83,10 +83,6 @@ If you need these operations, please reach out to us, and we can prioritize the 
 You can file a GitHub issue, e-mail us at support@momentohq.com, or join
 our [Discord](https://discord.com/invite/3HkAKjUZGq).
 
-- `many`
-- `putMany`
-- `decrement`
 - `forever`
-- `flush`
 
 {{ ossFooter }}
