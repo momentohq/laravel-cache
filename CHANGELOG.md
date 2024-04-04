@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/momentohq/laravel-cache/compare/v1.1.0...v1.1.1) (2024-04-04)
+
+
+### Bug Fixes
+
+* Update README.md ([#33](https://github.com/momentohq/laravel-cache/issues/33)) ([1b6b2af](https://github.com/momentohq/laravel-cache/commit/1b6b2af3c4cf7ae0932af9effc9b0e609bfa47df))
+
 ## [1.1.0](https://github.com/momentohq/laravel-cache/compare/v1.0.5...v1.1.0) (2024-04-04)
 
 
