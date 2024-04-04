@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/momentohq/laravel-cache/compare/v1.0.5...v1.1.0) (2024-04-04)
+
+
+### Features
+
+* add get/set batch apis ([#30](https://github.com/momentohq/laravel-cache/issues/30)) ([54475af](https://github.com/momentohq/laravel-cache/commit/54475af96da68e205ab35db1b60c5515befe6afa))
+
+
+### Miscellaneous
+
+* add flush + update readme ([#32](https://github.com/momentohq/laravel-cache/issues/32)) ([0dd1c3f](https://github.com/momentohq/laravel-cache/commit/0dd1c3f446ee61c5a5cfc5f833244cccb3adf85e))
+
 ## [1.0.5](https://github.com/momentohq/laravel-cache/compare/v1.0.4...v1.0.5) (2024-03-25)
 
 
