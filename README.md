@@ -48,10 +48,13 @@ Then, add `MomentoServiceProvider` to your `config/app.php`:
 ];
 ```
 
-And add `MOMENTO_API_KEY`=<YOUR_API_KEY> into your `.env` file
+And add:
+- `MOMENTO_API_KEY`= <YOUR_API_KEY> 
+- `MOMENTO_CACHE_NAME`= <CACHE_CREATED_ABOVE>
 
-Finally, add the required config to your `config/cache.php`, 
-`MOMENTO_CACHE_NAME` being the name of the cache you created above:
+into your `.env` file
+
+Finally, add the required config to your `config/cache.php`:
 
 ```php
 'default' => env('CACHE_DRIVER', 'momento'),
