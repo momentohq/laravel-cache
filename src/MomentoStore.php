@@ -24,7 +24,6 @@ class MomentoStore extends TaggableStore
         $configuration = Laptop::latest();
         $this->client = new CacheClient($configuration, $authProvider, $defaultTtl);
         $this->cacheName = $cacheName;
-        $this->client->createCache($cacheName);
     }
 
     public function get($key): ?string
