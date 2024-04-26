@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.4](https://github.com/momentohq/laravel-cache/compare/v1.1.3...v1.1.4) (2024-04-26)
+
+
+### Bug Fixes
+
+* readme template ([#41](https://github.com/momentohq/laravel-cache/issues/41)) ([329eecd](https://github.com/momentohq/laravel-cache/commit/329eecdec8e2690404725011bc487975331582f1))
+* update readme to point to latest laravel-cache version ([#39](https://github.com/momentohq/laravel-cache/issues/39)) ([279b7df](https://github.com/momentohq/laravel-cache/commit/279b7df44e98f344b7008b672acba5ac6c377117))
+
 ## [1.1.3](https://github.com/momentohq/laravel-cache/compare/v1.1.2...v1.1.3) (2024-04-26)
 
 
