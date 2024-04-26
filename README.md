@@ -10,7 +10,7 @@
 
 - A Momento API Key is required, you can generate one using
   the [Momento Console](https://console.gomomento.com)
-- A Momento cache is required, you can generate one by choosing the desired cloud provider and region using
+- A Momento cache is required, you can generate one using
   the [Momento Console](https://console.gomomento.com/create)
 - At least PHP 8.0
 - [Composer](https://getcomposer.org/doc/00-intro.md)
