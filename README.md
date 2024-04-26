@@ -10,6 +10,8 @@
 
 - A Momento API Key is required, you can generate one using
   the [Momento Console](https://console.gomomento.com)
+- A Momento cache is required, you can generate one by choosing the desired cloud provider and region using
+  the [Momento Console](https://console.gomomento.com/create)
 - At least PHP 8.0
 - [Composer](https://getcomposer.org/doc/00-intro.md)
 - At least [Laravel 9.x](https://laravel.com/docs/9.x/installation)
@@ -48,7 +50,8 @@ Then, add `MomentoServiceProvider` to your `config/app.php`:
 
 And add `MOMENTO_API_KEY`=<YOUR_API_KEY> into your `.env` file
 
-Finally, add the required config to your `config/cache.php`:
+Finally, add the required config to your `config/cache.php`, 
+`MOMENTO_CACHE_NAME` being the name of the cache you created above:
 
 ```php
 'default' => env('CACHE_DRIVER', 'momento'),
