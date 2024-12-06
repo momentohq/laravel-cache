@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.5](https://github.com/momentohq/laravel-cache/compare/v1.1.4...v1.1.5) (2024-12-06)
+
+
+### Miscellaneous
+
+* add create cache and delete cache before/after tests ([#42](https://github.com/momentohq/laravel-cache/issues/42)) ([342f13f](https://github.com/momentohq/laravel-cache/commit/342f13f0a0278b79469ca48b8eb580f4ed699dd3))
+* update license file ([#43](https://github.com/momentohq/laravel-cache/issues/43)) ([c53cf14](https://github.com/momentohq/laravel-cache/commit/c53cf14c80555518457ade48b09d1999efd7093c))
+* update to latest readme template ([4ed4a66](https://github.com/momentohq/laravel-cache/commit/4ed4a664552e1e0bdc177065958b3e0e8cab2b12))
+
 ## [1.1.4](https://github.com/momentohq/laravel-cache/compare/v1.1.3...v1.1.4) (2024-04-26)
 
 
